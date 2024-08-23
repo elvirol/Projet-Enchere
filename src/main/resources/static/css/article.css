@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    /*width:100vw;*/
+}
+
+main {
+    width: 30vw;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+main a {
+	text-decoration: none;
+	font-size:0.9rem;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+fieldset{
+	margin-bottom: 15px;
+}
+
+label {
+    width: 30%;
+    text-align: right;
+    margin-right: 15px;
+    color: #333;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-buttons {
+    margin-top: 20px;
+    text-align: center;
+	display: flex;
+    justify-content: space-evenly;
+}
+
+.btn-save, .btn-cancel {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-save {
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-save:hover {
+    background-color: #575757;
+}
+
+.btn-cancel {
+    background-color: #ccc;
+    color: #333;
+}
+
+.btn-cancel:hover {
+    background-color: #999;
+}
+
+.resizeImg {
+	display:flex;
+	justify-content:center;
+	margin-bottom: 15px;
+}
+
+div.resizeImg img {
+    max-width: 100%;
+    height: auto;
+    max-width: 260px;   
+}
+
+/* Styles pour une meilleure réactivité */
+@media (max-width: 768px) {
+	main{
+		width:90vw;
+		margin:5%;
+	}
+	
+	label{
+		margin:1vw;
+		width: 30vw;
+	}
+	fieldset input{
+		max-width:50vw;
+	}
+}

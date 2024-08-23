@@ -1,0 +1,15 @@
+<header th:fragment="frag-entete">
+    <div class="logo">
+        <a href="/"><img src="/images/logo.jpg" alt="logo" /></a></a>
+    </div>
+    <div id="nomAsso">Les objets sont nos amis</div>
+    <nav>
+    	<ul>
+    		<li><a th:href="@{/encheres}">Enchères</a></li>
+    		<li sec:authorize="isAuthenticated()"><a  th:href="@{/article/creer}">Vendre</a></li>
+       		<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">S'inscrire - se connecter</a></li>
+       		<li sec:authorize="isAuthenticated()"><a th:href="@{/monCompte}"><span sec:authentication=name></span></a></li>
+        	<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Se déconnecter</a></li>
+       </ul>
+    </nav>
+</header>

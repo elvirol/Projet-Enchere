@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enchères</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/encheres.css">
+    
+</head>
+<body>
+
+	<div th:replace="~{/fragments/fragment-entete :: frag-entete}"></div>
+
+	<main>
+
+	<h1>Liste des enchères</h1>
+
+	<section id="search">
+	    <form th:object="${filterEncheres}" data-th-action="@{/encheres}" method="POST">
+	        <div id="allFilters">
+	        	<div id="defaultFilters">
+	    		<li>
+	        		<label for="filter">Filtre</label>
+	    			<input type="text" id="filter" th:field="*{motCles}" placeholder="Le nom de l'article contient">
+	    		</li>	
+	    		<li>
+	    			<label for="categorie">Catégorie</label>
+	    			<select th:field="*{categories}"  id="categorie">
+	    				<option th:value=0>Toutes</option>
+	    				<option data-th-each="categorie : ${listeCategories}" data-th-text="${categorie.libelle}" th:value="${categorie.noCategorie}" ></option>
+	    				
+	    			</select>
+				</li>	
+				</div>
+			
+			<div id="extraFilters" sec:authorize="isAuthenticated()">
+			
+				<div class="subFilters">
+			
+				<div>
+					<input type="radio" id="achats" name="choice" value="none2" disabled />
+					<label for="achats">Achats</label>
+				</div>
+				<div class="checkBox">
+					<input type="checkbox" id="encheresOuverte"  th:field="*{encheresOuvertes}" value="1">
+					<label for="encheresOuverte">enchères Ouverte</label>
+				</div>
+				<div class="checkBox">
+					<input type="checkbox" id="encheresEnCours" th:field="*{encheresEnCours}" value="1">
+					<label for="encheresEnCours">mes enchères en cours</label>
+									</div>
+				<div class="checkBox">
+					<input type="checkbox" id="encheresRemportees"   th:field="*{encheresRemportees}" value="1">
+					<label for="encheresRemportees">mes enchères remportées</label>
+				</div>
+				
+				</div>
+			
+				<div class="subFilters">
+				
+				<div>
+					<input type="radio" id="ventes" name="choice" value="none1" disabled />
+					<label for="ventes">Mes ventes</label>
+				</div>
+				<div class="checkBox">
+					<input type="checkbox" id="ventesEnCours"  th:field="*{ventesEnCours}" value="1">
+					<label for="ventesEnCours">mes ventes en cours</label>
+				</div>
+				<div class="checkBox">
+					<input type="checkbox" id="ventesNonDebutees"  th:field="*{ventesNonDebutees}" value="1">
+					<label for="ventesNonDebutees">Ventes non débutées</label>
+				</div>
+				<div class="checkBox">
+					<input type="checkbox" id="encheresRemportees"   th:field="*{ventesTerminees}" value="1">
+					<label for="ventesTerminées">Ventes terminées</label>
+				</div>
+				
+				</div>
+			</div>
+			</div>
+			<div id="btnBox"><button class="btn" type="submit">Rechercher</button></div>
+			
+	    </form>
+	</section>
+	<section id="listeArticles">
+			<article data-th-each="article : ${listeArticles}">
+					
+					<div class="resizeImg" th:if="!${#strings.isEmpty(article.img_article)}">
+						<img th:src="${article.img_article}" alt="Photo article" />
+					</div>
+		
+					<div class="resizeImg" th:if="${#strings.isEmpty(article.img_article)}">
+						<img src="images/articles/article-defaut.png" alt="Photo article" />
+					</div>
+					
+								
+					<ul class="texte">
+						<li sec:authorize="!isAuthenticated()" data-th-text="${article.nomArticle}"></li>
+						<li sec:authorize="isAuthenticated()" ><a th:href="@{'/article?no='+${article.noArticle}}" data-th-text="${article.nomArticle}"></a></li>
+						<li th:if="${article.prixDeVente>0}" data-th-text="'Prix : '+${article.prixDeVente}+' points'"></li>
+						<li th:if="!${article.prixDeVente>0}" data-th-text="'Prix : '+${article.miseAPrix}+' points'"></li>
+						<li th:text="'Fin des enchères : '+${#temporals.format(article.dateFinEncheres, 'dd/MM/yyyy')}"></li>
+						<li sec:authorize="!isAuthenticated()" data-th-text="'Vendeur : '+${article.vendeur.pseudo}"></li>
+						<li sec:authorize="isAuthenticated()" >Vendeur : <a th:href="@{'/profil/'+${article.vendeur.pseudo}}" data-th-text="${article.vendeur.pseudo}"></a></li>
+					</ul>
+				
+			</article>
+	</section>
+	
+	
+	
+	</main>
+
+</body>
+</html>

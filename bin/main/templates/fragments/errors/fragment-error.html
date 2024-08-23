@@ -1,0 +1,4 @@
+<!-- affichage des messages d'erreurs liée à un champ-->
+<ul data-th-fragment="frag-error(inputName)" class="errors" data-th-if="${#fields.hasErrors(inputName)}">
+	<li class="message-erreur" data-th-each="err : ${#fields.errors(inputName)}" data-th-text="${err}"></li>
+</ul>

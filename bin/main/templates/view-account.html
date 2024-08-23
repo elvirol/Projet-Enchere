@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enchères</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/account.css">
+    <link rel="stylesheet" href="/css/message-erreur.css">
+</head>
+<body>
+
+	<div th:replace="~{/fragments/fragment-entete :: frag-entete}"></div>
+
+    <main>
+		<h1 th:if="${estNouveau}">Créer un compte</h1>
+		<h1 th:if="!${estNouveau}">Mon profil</h1>
+		
+		<form th:action="@{'/monCompte'+${estNouveau ? '/creer':''}}" method="POST" th:object="${utilisateur}">
+	    	<div data-th-replace="~{/fragments/errors/fragment-errors :: frag-errors}"></div>
+	    	<div class="form-columns">
+	    	<ul class="form-left">
+	        	<li>
+					<label for="pseudo">Pseudo* :</label>
+					<input type="text" id="pseudo" th:field="*{pseudo}">
+				</li>
+				<li>
+					<ul data-th-replace="~{fragments/errors/fragment-error :: frag-error('pseudo')}"></ul>
+				</li>
+				
+		 		<li>
+					<label for="prenom">Prénom* :</label>
+					<input type="text" id="prenom" th:field="*{prenom}">
+				</li>
+				<li>
+					<ul data-th-replace="~{fragments/errors/fragment-error :: frag-error('prenom')}"></ul>
+				</li>
+				
+		        <li>
+					<label for="telephone">Téléphone :</label>
+					<input type="text" id="telephone" th:field="*{telephone}">
+				</li>
+				<li>
+					<ul data-th-replace="~{fragments/errors/fragment-error :: frag-error('telephone')}"></ul>
+				</li>
+				
+		        <li>
+					<label for="codePostal">Code postal* :</label>
+					<input type="text" th:field="*{codePostal}">
+				</li>
+				<li>
+					<ul data-th-replace="~{fragments/errors/fragment-error :: frag-error('codePostal')}"></ul>
+				</li>
+				
+		        <li th:if="${estNouveau}">
+					<label for="motDePasse">Mot de passe* :</label>
+					<input type="password" id="motDePasse" th:field="*{motDePasse}">
+				</li>
+				<li>
+					<ul data-th-replace="~{fragments/errors/fragment-error :: frag-error('motDePasse')}"></ul>
+				</li>
+				
+				<li th:if="!${estNouveau}">
+					<label for="motDePasseActuel">Mot de passe actuel :</label>
+					<input type="password" id="motDePasseActuel" name="actuelMotDePasse">
+					<input type="hidden" id="motDePasseFake" th:field="*{motDePasse}">
+				</li>
+				
+				
+				<li th:if="!${estNouveau}">
+					<label for="motDePasseNouveau">Nouveau mot de passe :</label>
+					<input type="password" id="motDePasseNouveau" name="nouveauMotDePasse">
+				</li>
+				
+				<li th:if="!${estNouveau}" th:text="'Crédit    '+*{credit}"></li>
+		
+			</ul>
+		
+		    <ul class="form-right">
+		        <li>
+					<label for="nom">Nom* :</label>
+					<input type="text" id="nom" th:field="*{nom}">
+				</li>
+				<li>
+					<ul data-th-replace="~{fragments/errors/fragment-error :: frag-error('nom')}"></ul>
+				</li>
+		
+		        <li>
+					<label for="email">Email* :</label>
+					<input type="text" id="email" th:field="*{email}">
+				</li>
+				<li>
+					<ul data-th-replace="~{fragments/errors/fragment-error :: frag-error('email')}"></ul>
+				</li>
+				
+		        <li>
+					<label for="rue">Rue* :</label>
+					<input type="text" id="rue" th:field="*{rue}">
+				</li>
+				<li>
+					<ul data-th-replace="~{fragments/errors/fragment-error :: frag-error('rue')}"></ul>
+				</li>
+				
+		        <li>
+					<label for="ville">Ville* :</label>
+					<input type="text" id="ville" th:field="*{ville}">
+				</li>
+				<li>
+					<ul data-th-replace="~{fragments/errors/fragment-error :: frag-error('ville')}"></ul>
+				</li>
+				
+		        <li>
+					<label for="confirmation">Confirmation :</label>
+					<input type="password" id="confirmation" name="confirmationMotDePasse">
+				</li>
+				
+			</ul>
+		</div>
+		<div class="form-buttons" th:if="${estNouveau}">
+			<button class="btn-save" type="submit">Créer</button>
+		    <a class="btn-cancel" href="/">Annuler</a>
+		</div>
+		<div class="form-buttons" th:if="!${estNouveau}">
+			<button class="btn-save" type="submit">Enregistrer</button>
+		    <a class="btn-cancel" th:href="@{/monCompte/supprimer}">Supprimer mon compte</a>
+		</div>
+		
+		</form>
+	
+	</main>
+    
+</body>
+</html>

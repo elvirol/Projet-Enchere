@@ -1,0 +1,138 @@
+body {
+	background-color: #f4f4f4;
+}
+
+main {
+	padding: 0 2rem;
+}
+
+main a{
+	text-decoration: none;
+}
+
+h1{
+	text-align:center;
+	margin:1vw;
+	font-size:1.5rem;
+}
+
+form {  
+    /*display: grid;
+    grid-template-columns: 1fr 1fr;*/
+    margin:1% 20%;
+    display:flex;
+    justify-content: space-evenly;
+}
+
+#extraFilters{
+	display: flex;
+	justify-content:space-evenly;
+}
+
+.subFilters{
+	display: flex;
+	flex-direction: column;
+	width:50%;
+}
+
+.checkBox{
+	padding-left:10%;
+}
+
+#allFilters{
+	width:60%;
+	/*margin-right:10vw;*/
+}
+
+li {
+	list-Style-type:none;
+}
+
+#listeArticles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+article {
+    padding: 2rem;
+    border: solid 1px black;
+    margin: 1.1rem;
+    display: flex;
+    flex-direction: row;
+    width: 30vw;
+    background-color: #ffffff;
+    
+}
+
+article ul{
+	list-style-type: none;
+	margin: 1%;
+	padding:2%;
+}
+
+.resizeImg {
+	max-width: 260px;
+}
+
+section article img {
+    max-width: 100%;
+    height: auto;   
+}
+
+#btnBox{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #333;
+    color: #fff;
+    height:5vh;
+    width:10vw;
+}
+
+.btn:hover {
+    background-color: #575757;
+}
+
+@media (max-width: 768px) {
+	article {
+    	padding: 0rem;
+    	margin:0;
+    	margin-top: 2rem;
+    	display: flex;
+    	flex-direction: row;
+    	width: 90vw;
+	}
+	
+	.resizeImg {
+	max-width: 40vw;
+	}
+	
+	form{
+		flex-direction: column;
+		margin:1% 5%;
+  	
+	}
+	.subFilters{
+		width:100%;
+	}
+	.btn{
+		width:auto;
+		margin-top:2vh;
+	}
+	
+	#allFilters{
+		width:100%;
+	}
+	#extraFilters{
+		flex-direction: column;
+	}
+}

@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    /*width:100vw;*/
+}
+
+main {
+    width: 30vw;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+main a {
+	text-decoration: none;
+	font-size:0.9rem;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+label {
+    width: 150px;
+    text-align: right;
+    margin-right: 15px;
+    color: #333;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-edit {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 10px;
+
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-edit:hover {
+    background-color: #575757;
+}
+
+/* Styles pour une meilleure réactivité */
+@media (max-width: 768px) {
+	main{
+		width:90vw;
+		margin:5%;
+	}
+	
+	label{
+		margin:1vw;
+		width: 50vw;
+	}
+	
+}

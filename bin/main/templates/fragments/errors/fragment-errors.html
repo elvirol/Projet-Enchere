@@ -1,0 +1,7 @@
+<!-- affichage des messages d'erreurs -->
+<div data-th-fragment="frag-errors" class="errors" data-th-if="${#fields.hasErrors('*')}">
+	<ul>
+		<li class="message-erreur" data-th-each="err : ${#fields.globalErrors()}" data-th-text="${err}"></li>
+	</ul>
+	
+</div>

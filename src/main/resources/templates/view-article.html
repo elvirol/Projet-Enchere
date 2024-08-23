@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Enchères</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/header.css" />
+	<link rel="stylesheet" href="/css/article.css" />
+	<link rel="stylesheet" href="/css/message-erreur.css">
+</head>
+<body>
+
+	<div th:replace="~{/fragments/fragment-entete :: frag-entete}"></div>
+	
+	<main>
+	
+	<h1 th:if="${estNouveau}">Nouvelle vente</h1>
+	<h1 th:if="${estEnCours}">Détail de la vente</h1>
+	<h1 th:if="${estTermine and estAcheteur}">Vous avez remporté la vente</h1>
+	<h1 th:if="${estTermine and !estAcheteur}" th:text="${articleVendu.acheteur.pseudo}+' a remporté la vente'"></h1>
+	
+	<form th:object="${articleVendu}" th:action="@{'/'+${estNouveau ? 'article/creer':''}+${!estNouveau and estVendeur ? 'article/modifier':''}+${estEnCours and !estVendeur ? 'article/encherir':''}}" method="POST" enctype="multipart/form-data">
+	
+		<div class="resizeImg" th:if="!*{#strings.isEmpty(img_article)}">
+			<img th:src="'/'+*{img_article}" alt="Photo article" />
+		</div>
+		
+		<div class="resizeImg" th:if="*{#strings.isEmpty(img_article)}">
+			<img src="/images/articles/article-defaut.png" alt="Photo article" />
+		</div>
+		
+		<div data-th-replace="~{/fragments/errors/fragment-errors :: frag-errors}"></div>
+		
+		<div class="form-group">
+			<label for="inputArticle">Article </label>
+			<input type="hidden" th:field=*{noArticle} />
+			<input type="text" id="inputArticle" th:field="*{nomArticle}" th:readonly="!${estVendeur} or ${estEnCours} or ${estTermine}"/>
+		</div>
+		<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('nomArticle')}"></div>
+		
+		<div class="form-group">
+			<label for="inputDescription">Description </label>
+			<textarea rows="3" cols="30" id="inputDescription" th:field="*{description}" th:readonly="!${estVendeur} or ${estEnCours} or ${estTermine}"></textarea>
+		</div>
+		<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('description')}"></div>
+		
+		<div class="form-group" th:if="${estNouveau}">
+			<label for="inputCategories">Catégorie </label>
+			<select id="inputCategories" th:field="*{categorie}">
+				<option th:each="categorie : ${listeCategories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}"></option>
+			</select>
+		</div>
+		<div class="form-group" th:if="!${estNouveau}">
+			<label for="inputCategorie">Catégorie </label>
+			<input type="text" id="inputCategorie" th:field="*{categorie.libelle}" th:readonly="!${estVendeur} or ${estEnCours} or ${estTermine}"/>
+		</div>
+		
+		<div class="form-group" th:if="${estVendeur} and !${estEnCours} and !${estTermine}">
+			<label for="inputImage">Photo de l'article </label>
+			<input type="file" id="inputImage" accept="image/*" th:name="imgArticle"/>
+		</div>
+		<div class="form-group">
+			<label for="inputPrix">Mise à prix </label>
+			<input type="number" id="inputPrix" th:field="*{miseAPrix}" th:readonly="!${estVendeur} or ${estEnCours} or ${estTermine}"/>
+		</div >
+		<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('miseAPrix')}"></div>
+		
+		<div class="form-group" th:if="*{prixDeVente}!=0">
+			<label for="inputPrix">Prix de vente </label>
+			<input type="number" id="inputPrix" th:field="*{prixDeVente}" readonly/>
+		</div >
+		
+			<div class="form-group" th:if="!${estTermine}">
+			<label for="inputDateDebut">Début de l'enchère </label>
+			<input type="datetime-local" id="inputDateDebut" th:field="*{dateDebutEncheres}" th:readonly="!${estVendeur} or ${estEnCours} or ${estTermine}"/>
+		</div>
+		<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('dateDebutEncheres')}"></div>
+		
+		<div class="form-group">
+			<label for="inputDateFin">Fin de l'enchère </label>
+			<input type="datetime-local" id="inputDateFin" th:field="*{dateFinEncheres}" th:readonly="!${estVendeur} or ${estEnCours} or ${estTermine}"/>
+		</div>
+		<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('dateFinEncheres')}"></div>
+		
+		<div>
+		<fieldset>
+			<legend>Retrait</legend>
+			
+			<div class="form-group">
+			<label for="inputRue">Rue </label>
+			<input type="text" id="inputRue" th:field="*{lieuRetrait.rue}" th:readonly="!${estVendeur} or ${estEnCours} or ${estTermine}"/>
+			</div>
+			<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('lieuRetrait.rue')}"></div>
+			
+			<div class="form-group">
+			<label for="inputCP">Code postal </label>
+			<input type="text" id="inputCP" th:field="*{lieuRetrait.code_postal}" th:readonly="!${estVendeur} or ${estEnCours} or ${estTermine}"/>
+			</div>
+			<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('lieuRetrait.code_postal')}"></div>
+			
+			<div class="form-group">
+			<label for="inputVille">Ville </label>
+			<input type="text" id="inputVille" th:field="*{lieuRetrait.ville}" th:readonly="!${estVendeur} or ${estEnCours} or ${estTermine}"/>
+			</div>
+			<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('lieuRetrait.ville')}"></div>
+			
+		</fieldset>
+		</div>
+		<div class="form-group" th:if="!${estVendeur}">
+			<label for="inputVendeur">Vendeur </label>
+			<input type="text" id="inputVendeur" th:field="*{vendeur.pseudo}" readonly/>
+		</div>
+		<div class="form-group" th:if="!${estVendeur} and ${estEnCours}">
+			<label for="inputProposition">Ma proposition </label>
+			<input type="number" id="inputProposition" name="proposition"/>
+		</div>
+		<div class="form-buttons">
+			<button th:if="${estNouveau}" class="btn-save" type="submit" >Créer</button>
+			<button th:if="!${estNouveau} and ${estVendeur}" class="btn-save" type="submit" >Enregistrer</button>
+			<button th:if="${estEnCours} and !${estVendeur}" class="btn-save" type="submit">Enchérir</button>
+			<a class="btn-cancel" href="/">Retour</a>
+			<a th:if="${estVendeur} and !${estNouveau} and !${estTermine}" class="btn-cancel" th:href="'/article/supprimer?no='+*{noArticle}">Annuler la vente</a>
+		</div>
+		
+	</form>
+
+	</main>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Enchères</title>
+	<link rel="stylesheet" href="/css/header.css">
+	<link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+
+	<div th:replace="~{/fragments/fragment-entete :: frag-entete}"></div>
+	
+	<main>
+	
+	<form action="">
+		<div class="form-group">
+			<label for="pseudo">Pseudo</label>
+			<input type="text" id="pseudo" data-th-value="${utilisateur.pseudo}" disabled/>
+		</div>
+		<div class="form-group">
+			<label for="nom">Nom</label>
+			<input type="text" id="nom" data-th-value="${utilisateur.nom}" disabled/>
+		</div>
+		<div class="form-group">
+			<label for="prenom">Prénom</label>
+			<input type="text" id="prenom" data-th-value="${utilisateur.prenom}" disabled/>
+		</div>
+		<div class="form-group">
+			<label for="email">Email</label>
+			<input type="text" id="email" data-th-value="${utilisateur.email}" disabled/>
+		</div>
+		<div class="form-group">
+			<label for="telephone">Télephone</label>
+			<input type="text" id="telephone" data-th-value="${utilisateur.telephone}" disabled/>
+		</div>
+		<div class="form-group">
+			<label for="rue">Rue</label>
+			<input type="text" id="rue" data-th-value="${utilisateur.rue}" disabled/>
+		</div>
+		<div class="form-group">
+			<label for="codepostal">Code postal</label>
+			<input type="text" id="codepostal" data-th-value="${utilisateur.codePostal}" disabled/>
+		</div>
+		<div class="form-group">
+			<label for="ville">Ville</label>
+			<input type="text" id="ville" data-th-value="${utilisateur.ville}" disabled/>
+		</div>
+		<div class="form-buttons" th:if="${estMonCompte}">
+			<a class="btn-edit" th:href="@{/monCompte}">Modifier</a>
+		</div>
+	</form>
+
+	</main>
+	
+</body>
+</html>
